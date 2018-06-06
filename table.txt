@@ -1,0 +1,386 @@
+drop table emp;
+----------------------------
+create table emp(empid varchar2(100),empname varchar2(200),salary number,empdept varchar2(200));
+
+insert into emp values('101','Raj',1000,'10');
+insert into emp values('102','Priya',1200,'20');
+insert into emp values('103','Rajesh',800,'40');
+insert into emp values('104','smitha',800,'20');
+insert into emp values('105','Ram',800,'30');
+
+insert into emp values('','',,'');
+
+
+-------------
+
+create table emp(empid varchar2(100),empname varchar2(200),salary number,empdept varchar2(200));
+
+insert into emp values('101','Raj',320,'10')
+insert into emp values('102','Priya',150,'20')
+insert into emp values('103','Rajesh',120,'40')
+insert into emp values('104','smitha',270,'20')
+insert into emp values('105','Ram',320,'30')
+
+
+
+
+--------------------------
+
+
+create table dept(deptid varchar2(100),deptname varchar2(200));
+
+
+insert into dept values('10','mar');
+insert into dept values('20','sal');
+insert into dept values('30','it');
+insert into dept values('40','busi');
+
+
+-------------------------------------
+
+
+create table emp(empid varchar2(100),empname varchar2(200),salary number,empdept varchar2(200));
+
+insert into emp values('101','raj',32,'10');
+insert into emp values('102','smi',27,'10');
+insert into emp values('103','rajes',12,'20');
+insert into emp values('104','priya',15,'20');
+insert into emp values('105','ram',32,'30');
+insert into emp values('106','venk',20,'40');
+insert into emp values('107','har',15,null);
+insert into emp values('108','har kumar',30,'50');
+
+
+-----------------------------------------------------
+
+
+
+create table person(ename varchar2(200),height number);
+
+
+insert into person values('RAHUL',6);
+
+insert into person values('PRIYA',5.7);
+
+insert into person values('ANU',5.6);
+
+insert into person values('RAJ',5.11);
+
+insert into person values('AJAY',NULL);
+
+insert into person values('PRAKESH',5.9);
+
+
+
+SELECT ename, height , NVL(TRUNC(height),0) AS "fEET" , 
+NVL(SUBSTR(HEIGHT-TRUNC(HEIGHT),2),0) AS "INCH" FROM person;
+
+
+----------------------------
+
+create table emp(empid varchar2(100),empname varchar2(200),salary number,empdept varchar2(200) , managerid varchar2(20));
+
+insert into emp values('101','Raj',3200,'10' , null);
+insert into emp values('102','smitha',2700,'20' ,'101);
+insert into emp values('103','Rajesh',1200,'40' , '101');
+insert into emp values('104','priya',1500,'20' ,'103');
+
+select * from emp;
+
+
+create view vemp as 
+select empid , empname, salary from emp
+where salary  is not null
+with check option;
+
+
+
+
+----------------------------------------------
+
+
+create table test (tcode number constraint tpk3 primary key,
+tname varchar2(20) constraint tpk4 check (tname in ('java','c','c++','sql')));
+
+
+create sequence test_seq start with 101;
+
+insert into test values(test_seq.nextval, 'java');
+insert into test value(test_seq.nextval, 'plsql');
+
+
+
+Error in the second row insertion due to check constraint violation.
+
+
+
+----------------------------------------------------
+
+
+create table product (pid number ,
+pname varchar2(30),
+cost number ,
+
+constraint c1 unique(pid ,pname)
+
+using index (create index index_pr on 
+product (pid ,pname)),
+
+constraint c2 unique(pname ,pid)
+using index index_pr);
+
+
+
+
+--------------------------------------------------------
+
+
+create table sales(pid number primary key,
+product varchar2(200),
+uprice number,
+discount number,
+qty number);
+
+
+
+insert into sales values(11,'arrow',934,65,1);
+
+insert into sales values(12,'peter',809,40,2);
+
+insert into sales values(13,'drives',449,50,1);
+
+insert into sales values(14,'symbol',449,70,1);
+
+
+
+-------------------------------------------------------
+
+create table emp(empid varchar2(100),empname varchar2(200),salary number,empdept varchar2(200) );
+
+insert into emp values('101','Raj',32000,'10'  );
+insert into emp values('102','smitha',27000,'20'  );
+insert into emp values('103','Rajesh',12000,'10'  );
+insert into emp values('104','priya',15000,'20'  );
+
+insert into emp values('105','ram',32000,'30'  );
+insert into emp values('106','venket',20000,null  );
+insert into emp values('107','harish',15000,'20'  );
+
+
+
+---------------------------------------------------------
+
+
+create table EMPLOYEES(empid number,empname varchar2(200),deptno number);
+
+ 
+
+insert into EMPLOYEES values('101','JOHN FEDRICK','10');
+insert into EMPLOYEES values('102','MARK ALLEN','20');
+insert into EMPLOYEES values('102','MARK ALLEN','20');
+insert into EMPLOYEES values('103','DAVID AUSTIN','10');
+
+ 
+
+SELECT EMPNAME FROM EMPLOYEES
+GROUP BY EMPID,EMPNAME,DEPTNO
+HAVING COUNT(*)>1;
+
+---------------------------------------------------------------
+
+create table WEATHER(LOCATION varchar2(200),TEMP_C NUMBER,WIND NUMBER,VISIBILITY NUMBER,PRESSURE NUMBER,HUMIDITY NUMBER,DEW_PT NUMBER);
+
+ 
+
+insert into WEATHER values('CHENNAI',27,9,6,1014,74,22);
+insert into WEATHER values('MUMBAI',30,5,4,1008,47,20);
+
+ 
+
+select * from weather;
+delete from weather;
+
+ 
+
+CREATE VIEW VU_WEATHER1 AS
+SELECT LOCATION, (TEMP_C)*9/5-32 "TEMP_F"
+FROM WEATHER;
+
+ 
+
+CREATE VIEW VU_WEATHER2 AS
+SELECT LOCATION, (TEMP_C)*9/5+32 "TEMP_F"
+FROM WEATHER;
+
+ 
+
+CREATE VIEW VU_WEATHER3 AS
+SELECT LOCATION, ROUND((TEMP_C)*9/5-32) "TEMP_F"
+FROM WEATHER;
+
+ 
+
+CREATE VIEW VU_WEATHER4 AS
+SELECT LOCATION, ROUND((TEMP_C)*9/5+32) "TEMP_F"
+FROM WEATHER;
+
+ 
+
+SELECT * FROM VU_WEATHER1;
+
+SELECT * FROM VU_WEATHER2;
+
+SELECT * FROM VU_WEATHER3;
+
+SELECT * FROM VU_WEATHER4;
+
+-----------------------------------------------------------------------------
+
+
+create table location(
+locid number,
+country varchar2(200));
+
+ 
+
+create table alternateLoc(
+
+locid number,
+
+country varchar2(200));
+
+ 
+
+insert into location values('60001','FRANCE');
+
+insert into location values('60002','ARGENTINA');
+
+insert into location values('60003','CHINA');
+
+ 
+
+ 
+
+insert into alternateLoc values('60001',NULL);
+
+insert into alternateLoc values('60002',NULL);
+
+insert into alternateLoc values('60003',NULL);
+
+ 
+
+UPDATE (SELECT A.LOCID,A.COUNTRY C1,B.LOCID,B.COUNTRY C2 FROM alternateLoc A, LOCATION B WHERE A.LOCID=B.LOCID) SET C1=C2;
+
+ 
+
+MERGE INTO ALTERNATELOC A
+
+USING
+
+(SELECT LOCID,COUNTRY FROM LOCATION)B ON (B.LOCID=A.LOCID)
+
+WHEN MATCHED THEN UPDATE
+
+SET A.COUNTRY=B.COUNTRY,A.LOCID=60001;
+
+ 
+
+Result :
+
+SQL Error: ORA-38104: Columns referenced in the ON Clause cannot be updated: "A"."LOCID"
+
+38104. 00000 -  "Columns referenced in the ON Clause cannot be updated: %s"
+
+*Cause:    LHS of UPDATE SET contains the columns referenced in the ON Clause
+
+*Action:
+
+ 
+
+UPDATE ALTERNATELOC A SET A.COUNTRY =(SELECT B.COUNTRY FROM  LOCATION B WHERE
+
+B.LOCID=A.LOCID);
+
+
+
+------------------------------------------------------------
+
+
+create table SCHOOL(BATCHID number,BATCHNAME varchar2(20),YEAR number,NO_OF_STUDENTS NUMBER);
+
+ 
+
+insert into SCHOOL values('11','B1','2008',30);
+insert into SCHOOL values('12','B2','2005',20);
+insert into SCHOOL values('13','B3','2006',27);
+insert into SCHOOL values('14','B4','2008',29);
+insert into SCHOOL values('15','B5','2005',33);
+insert into SCHOOL values('16','B6','2005',30);
+
+ 
+
+SELECT * FROM SCHOOL;
+
+SELECT YEAR, COUNT(1),SUM(NO_OF_STUDENTS)
+FROM SCHOOL GROUP BY YEAR;
+
+----------------------------------------------------------------
+
+SELECT TO_DATE('02/12/2017','dd/mm/yyyy') FROM DUAL;
+SELECT TO_CHAR(TO_DATE('02/12/2017','dd/mm/yyyy'),'DD-MONTH-YYYY') FROM DUAL;
+
+ 
+
+SELECT SUBSTR('HELLO',LEVEL,1)
+FROM DUAL CONNECT BY LEVEL <= LENGTH('HELLO');
+
+----------------------------------------------------------------
+
+CREATE TABLE RESULT(STNAME VARCHAR2(15),SCORE   NUMBER,RESULT VARCHAR2(10));
+
+ 
+
+INSERT INTO RESULT VALUES('JOHN',82,'PASS');
+INSERT INTO RESULT VALUES('GEORGE',35,'FAIL');
+INSERT INTO RESULT VALUES('MARK',47,'FAIL');
+INSERT INTO RESULT VALUES('ALLEN',73,'PASS');
+
+
+SELECT * FROM RESULT;
+
+
+SELECT STNAME,RESULT FROM RESULT
+INTERSECT
+SELECT STNAME,RESULT FROM RESULT WHERE RESULT='PASS';
+
+------------------------------------------------------------------
+
+CREATE TABLE TEST_SCORE(STUDENT_NAME VARCHAR2(20),TEST_ID NUMBER CONSTRAINT PKEY PRIMARY KEY,TEST_NAME VARCHAR2(20),TEST_CODE VARCHAR2(16),TEST_SCORE NUMBER(5));
+
+ 
+
+INSERT INTO TEST_SCORE VALUES('JOHN',101,'C Programming','T001',64);
+
+INSERT INTO TEST_SCORE VALUES('ANNE',102,'Java Programming','T002',79);
+
+INSERT INTO TEST_SCORE VALUES('SMITH',103,'R Programming','T003',82);
+
+INSERT INTO TEST_SCORE VALUES('MARK',104,'R Programming','T004',89);
+
+INSERT INTO TEST_SCORE VALUES('GEORGE',105,'R Programming','T005',92);
+
+ 
+
+CREATE TABLE TEST(T_NAME VARCHAR2(20),T_CODE VARCHAR2(16));
+
+
+--------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
